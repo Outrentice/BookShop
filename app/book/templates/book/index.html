@@ -1,0 +1,964 @@
+{% load static %}
+{% load main_tags %}
+<!doctype html>
+<html class="no-js" lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <meta name="description" content="Default Description">
+    <meta name="keywords" content="E-commerce" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.png">
+    <!-- Google Font css -->
+    <link href="https://fonts.googleapis.com/css?family=Lily+Script+One/Open+Sans:400,600|Rubik:300,400,500,700" rel="stylesheet">
+
+    <!-- mobile menu css -->
+    <link rel="stylesheet" href="{% static 'book/css/meanmenu.min.css' %}">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'book/css/animate.css' %}">
+    <!-- nivo slider css -->
+    <link rel="stylesheet" href="{% static 'book/css/nivo-slider.css' %}">
+    <!-- owl carousel css -->
+    <link rel="stylesheet" href="{% static 'book/css/owl.carousel.min.css' %}">
+    <!-- slick css -->
+    <link rel="stylesheet" href="{% static 'book/css/slick.css' %}">
+    <!-- price slider css -->
+    <link rel="stylesheet" href="{% static 'book/css/jquery-ui.min.css' %}">
+    <!-- fontawesome css -->
+    <link rel="stylesheet" href="{% static 'book/css/font-awesome.min.css' %}">
+     <!-- fancybox css -->
+    <link rel="stylesheet" href="{% static 'book/css/jquery.fancybox.css' %}">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'book/css/bootstrap.min.css' %}">
+    <!-- default css  -->
+    <link rel="stylesheet" href="{% static 'book/css/default.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{% static 'book/css/style.css' %}">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="{% static 'book/css/responsive.css'%}">
+
+    <!-- modernizr js -->
+    <script src="{% static 'book/js/modernizr-2.8.3.min.js'%}"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+    <!-- Wrapper Start -->
+    <div class="wrapper homepage">
+        <!-- Newsletter Popup Start -->
+        <div class="popup_wrapper">
+            <div class="test">
+                <span class="popup_off">Close</span>
+                <div class="subscribe_area text-center mt-60">
+                    <h2>Newsletter</h2>
+                    <p>Subscribe to the Jantrik mailing list to receive updates on new arrivals, special offers and other discount information.</p>
+                    <div class="subscribe-form-group">
+                        <form action="#">
+                            <input autocomplete="off" type="text" name="message" id="message" placeholder="Enter your email address">
+                            <button type="submit">subscribe</button>
+                        </form>
+                    </div>
+                    <div class="subscribe-bottom mt-15">
+                        <input type="checkbox" id="newsletter-permission">
+                        <label for="newsletter-permission">Don't show this popup again</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Newsletter Popup End -->
+        <!-- Header Area Start -->
+        <header>
+            <!-- Header Top Start -->
+            <div class="header-top">
+                <div class="container">
+                    <div class="row">
+                        <!-- Header Top left Start -->                        
+                        <div class="col-lg-4 col-md-12 d-center">
+                            <div class="header-top-left">
+                                <img src="img/icon/call.png" alt="">Call Us : +7 (999) 999-99-99
+                            </div>                        
+                        </div>
+                        <!-- Header Top left End -->
+                        <!-- Search Box Start -->                                        
+                        <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                            <div class="search-box-view">
+                                <form action="{% url 'search' %}" method="post">
+                                    {% csrf_token %}
+                                    {{ search_form.search_input }}
+                                    <button type="submit" class="submit"></button>
+                                </form>
+                            </div>                                           
+                        </div>
+                        <!-- Search Box End -->
+                    </div>
+                </div>
+                <!-- Container End -->
+            </div>
+            <!-- Header Top End -->
+            <!-- Header Bottom Start -->
+            <div class="header-bottom header-sticky">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-2 col-sm-5 col-5">
+                            <div class="logo">
+                                <a href="{% url 'home' %}"><img src="{% static 'book/images/logo.png' %}" alt="logo-image"></a>
+                            </div>
+                        </div>
+                        <!-- Primary Vertical-Menu End -->
+                        <!-- Search Box Start -->
+                        <div class="col-xl-6 col-lg-7 d-none d-lg-block">
+                            <div class="middle-menu pull-right">
+                                <nav>
+                                    <ul class="middle-menu-list">
+                                        {% for m in menu %}
+                                            <li><a href="{% url m.url %}"> {{ m.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- Search Box End -->
+                        <!-- Cartt Box Start -->
+                        <div class="col-lg-3 col-sm-7 col-7">
+                            <div class="cart-box text-right">
+                                <ul>
+                                    <li><a href="#"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="settings-svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 8.25C9.92894 8.25 8.25 9.92893 8.25 12C8.25 14.0711 9.92894 15.75 12 15.75C14.0711 15.75 15.75 14.0711 15.75 12C15.75 9.92893 14.0711 8.25 12 8.25ZM9.75 12C9.75 10.7574 10.7574 9.75 12 9.75C13.2426 9.75 14.25 10.7574 14.25 12C14.25 13.2426 13.2426 14.25 12 14.25C10.7574 14.25 9.75 13.2426 9.75 12Z"/>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9747 1.25C11.5303 1.24999 11.1592 1.24999 10.8546 1.27077C10.5375 1.29241 10.238 1.33905 9.94761 1.45933C9.27379 1.73844 8.73843 2.27379 8.45932 2.94762C8.31402 3.29842 8.27467 3.66812 8.25964 4.06996C8.24756 4.39299 8.08454 4.66251 7.84395 4.80141C7.60337 4.94031 7.28845 4.94673 7.00266 4.79568C6.64714 4.60777 6.30729 4.45699 5.93083 4.40743C5.20773 4.31223 4.47642 4.50819 3.89779 4.95219C3.64843 5.14353 3.45827 5.3796 3.28099 5.6434C3.11068 5.89681 2.92517 6.21815 2.70294 6.60307L2.67769 6.64681C2.45545 7.03172 2.26993 7.35304 2.13562 7.62723C1.99581 7.91267 1.88644 8.19539 1.84541 8.50701C1.75021 9.23012 1.94617 9.96142 2.39016 10.5401C2.62128 10.8412 2.92173 11.0602 3.26217 11.2741C3.53595 11.4461 3.68788 11.7221 3.68786 12C3.68785 12.2778 3.53592 12.5538 3.26217 12.7258C2.92169 12.9397 2.62121 13.1587 2.39007 13.4599C1.94607 14.0385 1.75012 14.7698 1.84531 15.4929C1.88634 15.8045 1.99571 16.0873 2.13552 16.3727C2.26983 16.6469 2.45535 16.9682 2.67758 17.3531L2.70284 17.3969C2.92507 17.7818 3.11058 18.1031 3.28089 18.3565C3.45817 18.6203 3.64833 18.8564 3.89769 19.0477C4.47632 19.4917 5.20763 19.6877 5.93073 19.5925C6.30717 19.5429 6.647 19.3922 7.0025 19.2043C7.28833 19.0532 7.60329 19.0596 7.8439 19.1986C8.08452 19.3375 8.24756 19.607 8.25964 19.9301C8.27467 20.3319 8.31403 20.7016 8.45932 21.0524C8.73843 21.7262 9.27379 22.2616 9.94761 22.5407C10.238 22.661 10.5375 22.7076 10.8546 22.7292C11.1592 22.75 11.5303 22.75 11.9747 22.75H12.0252C12.4697 22.75 12.8407 22.75 13.1454 22.7292C13.4625 22.7076 13.762 22.661 14.0524 22.5407C14.7262 22.2616 15.2616 21.7262 15.5407 21.0524C15.686 20.7016 15.7253 20.3319 15.7403 19.93C15.7524 19.607 15.9154 19.3375 16.156 19.1985C16.3966 19.0596 16.7116 19.0532 16.9974 19.2042C17.3529 19.3921 17.6927 19.5429 18.0692 19.5924C18.7923 19.6876 19.5236 19.4917 20.1022 19.0477C20.3516 18.8563 20.5417 18.6203 20.719 18.3565C20.8893 18.1031 21.0748 17.7818 21.297 17.3969L21.3223 17.3531C21.5445 16.9682 21.7301 16.6468 21.8644 16.3726C22.0042 16.0872 22.1135 15.8045 22.1546 15.4929C22.2498 14.7697 22.0538 14.0384 21.6098 13.4598C21.3787 13.1586 21.0782 12.9397 20.7378 12.7258C20.464 12.5538 20.3121 12.2778 20.3121 11.9999C20.3121 11.7221 20.464 11.4462 20.7377 11.2742C21.0783 11.0603 21.3788 10.8414 21.6099 10.5401C22.0539 9.96149 22.2499 9.23019 22.1547 8.50708C22.1136 8.19546 22.0043 7.91274 21.8645 7.6273C21.7302 7.35313 21.5447 7.03183 21.3224 6.64695L21.2972 6.60318C21.0749 6.21825 20.8894 5.89688 20.7191 5.64347C20.5418 5.37967 20.3517 5.1436 20.1023 4.95225C19.5237 4.50826 18.7924 4.3123 18.0692 4.4075C17.6928 4.45706 17.353 4.60782 16.9975 4.79572C16.7117 4.94679 16.3967 4.94036 16.1561 4.80144C15.9155 4.66253 15.7524 4.39297 15.7403 4.06991C15.7253 3.66808 15.686 3.2984 15.5407 2.94762C15.2616 2.27379 14.7262 1.73844 14.0524 1.45933C13.762 1.33905 13.4625 1.29241 13.1454 1.27077C12.8407 1.24999 12.4697 1.24999 12.0252 1.25H11.9747ZM10.5216 2.84515C10.5988 2.81319 10.716 2.78372 10.9567 2.76729C11.2042 2.75041 11.5238 2.75 12 2.75C12.4762 2.75 12.7958 2.75041 13.0432 2.76729C13.284 2.78372 13.4012 2.81319 13.4783 2.84515C13.7846 2.97202 14.028 3.21536 14.1548 3.52165C14.1949 3.61826 14.228 3.76887 14.2414 4.12597C14.271 4.91835 14.68 5.68129 15.4061 6.10048C16.1321 6.51968 16.9974 6.4924 17.6984 6.12188C18.0143 5.9549 18.1614 5.90832 18.265 5.89467C18.5937 5.8514 18.9261 5.94047 19.1891 6.14228C19.2554 6.19312 19.3395 6.27989 19.4741 6.48016C19.6125 6.68603 19.7726 6.9626 20.0107 7.375C20.2488 7.78741 20.4083 8.06438 20.5174 8.28713C20.6235 8.50382 20.6566 8.62007 20.6675 8.70287C20.7108 9.03155 20.6217 9.36397 20.4199 9.62698C20.3562 9.70995 20.2424 9.81399 19.9397 10.0041C19.2684 10.426 18.8122 11.1616 18.8121 11.9999C18.8121 12.8383 19.2683 13.574 19.9397 13.9959C20.2423 14.186 20.3561 14.29 20.4198 14.373C20.6216 14.636 20.7107 14.9684 20.6674 15.2971C20.6565 15.3799 20.6234 15.4961 20.5173 15.7128C20.4082 15.9355 20.2487 16.2125 20.0106 16.6249C19.7725 17.0373 19.6124 17.3139 19.474 17.5198C19.3394 17.72 19.2553 17.8068 19.189 17.8576C18.926 18.0595 18.5936 18.1485 18.2649 18.1053C18.1613 18.0916 18.0142 18.045 17.6983 17.8781C16.9973 17.5075 16.132 17.4803 15.4059 17.8995C14.68 18.3187 14.271 19.0816 14.2414 19.874C14.228 20.2311 14.1949 20.3817 14.1548 20.4784C14.028 20.7846 13.7846 21.028 13.4783 21.1549C13.4012 21.1868 13.284 21.2163 13.0432 21.2327C12.7958 21.2496 12.4762 21.25 12 21.25C11.5238 21.25 11.2042 21.2496 10.9567 21.2327C10.716 21.2163 10.5988 21.1868 10.5216 21.1549C10.2154 21.028 9.97201 20.7846 9.84514 20.4784C9.80512 20.3817 9.77195 20.2311 9.75859 19.874C9.72896 19.0817 9.31997 18.3187 8.5939 17.8995C7.86784 17.4803 7.00262 17.5076 6.30158 17.8781C5.98565 18.0451 5.83863 18.0917 5.73495 18.1053C5.40626 18.1486 5.07385 18.0595 4.81084 17.8577C4.74458 17.8069 4.66045 17.7201 4.52586 17.5198C4.38751 17.314 4.22736 17.0374 3.98926 16.625C3.75115 16.2126 3.59171 15.9356 3.4826 15.7129C3.37646 15.4962 3.34338 15.3799 3.33248 15.2971C3.28921 14.9684 3.37828 14.636 3.5801 14.373C3.64376 14.2901 3.75761 14.186 4.0602 13.9959C4.73158 13.5741 5.18782 12.8384 5.18786 12.0001C5.18791 11.1616 4.73165 10.4259 4.06021 10.004C3.75769 9.81389 3.64385 9.70987 3.58019 9.62691C3.37838 9.3639 3.28931 9.03149 3.33258 8.7028C3.34348 8.62001 3.37656 8.50375 3.4827 8.28707C3.59181 8.06431 3.75125 7.78734 3.98935 7.37493C4.22746 6.96253 4.3876 6.68596 4.52596 6.48009C4.66055 6.27983 4.74468 6.19305 4.81093 6.14222C5.07395 5.9404 5.40636 5.85133 5.73504 5.8946C5.83873 5.90825 5.98576 5.95483 6.30173 6.12184C7.00273 6.49235 7.86791 6.51962 8.59394 6.10045C9.31998 5.68128 9.72896 4.91837 9.75859 4.12602C9.77195 3.76889 9.80512 3.61827 9.84514 3.52165C9.97201 3.21536 10.2154 2.97202 10.5216 2.84515Z"/>
+                                                                </svg></a>
+                                        <ul class="ht-dropdown">
+                                            {% if not request.user.is_authenticated %}
+                                                <li><a href="{% url 'login' %}">Login</a></li>
+                                                <li><a href="{% url 'register' %}">Register</a></li>
+                                            {% else %}
+                                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+
+                                    {% if request.user.is_authenticated %}
+                                        <li><a href="{% url 'basket' %}">
+                                                <svg width="28px" height="28px" viewBox="0 0 32 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="basket-svg">
+                                                    <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                {% if Basket_product.count > 0 %} <span class="cart-counter">{{ Basket_product.count }}</span> {% endif %}
+                                            </a>
+                                            <ul class="ht-dropdown main-cart-box">
+                                                <li>
+                                                    <!-- Cart Box Start -->
+
+                                                    {% for basket in Basket_product|slice:"3" %}
+                                                        <div class="single-cart-box">
+                                                            <div class="cart-img">
+                                                                <a href="{% url 'card' basket.product.slug %}"><img src="{{ basket.product.photo.url }}" alt="cart-image"></a>
+                                                            </div>
+                                                            <div class="cart-content">
+                                                                <h6><a href="product.html">{{ basket.product.name }}</a></h6>
+                                                                <span>{{ basket.count_product }} × {% sale_price basket.product.price basket.product.sale %}₽</span>
+                                                            </div>
+                                                            <a href="{% url 'basket_delete' basket.id %}" class="remove-sort">
+                                                                <svg width="16px" height="16px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M16 8L8 16M8.00001 8L16 16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                    {% endfor %}
+                                                    <!-- Cart Box End -->
+                                                    <!-- Cart Footer Inner Start -->
+                                                    <div class="cart-footer fix">
+                                                        {% total_price Basket_product as total %}
+                                                        {% division total 10 as sale %}
+                                                        <h5>total :<span class="f-right">{% if total > 3000 %}{% minus total sale %}{% else %}{{ total }}{% endif %}₽</span></h5>
+                                                        <div class="cart-actions">
+                                                            <a class="checkout" href="#">Checkout</a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Cart Footer Inner End -->
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <a href="{% url 'login' %}">
+                                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="basket-svg">
+                                                    <path d="M2.00098 11.999L16.001 11.999M16.001 11.999L12.501 8.99902M16.001 11.999L12.501 14.999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M9.00195 7C9.01406 4.82497 9.11051 3.64706 9.87889 2.87868C10.7576 2 12.1718 2 15.0002 2L16.0002 2C18.8286 2 20.2429 2 21.1215 2.87868C22.0002 3.75736 22.0002 5.17157 22.0002 8L22.0002 16C22.0002 18.8284 22.0002 20.2426 21.1215 21.1213C20.3531 21.8897 19.1752 21.9862 17 21.9983M9.00195 17C9.01406 19.175 9.11051 20.3529 9.87889 21.1213C10.5202 21.7626 11.4467 21.9359 13 21.9827" stroke-width="1.5" stroke-linecap="round"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Cartt Box End -->
+                        <div class="col-sm-12 d-lg-none">
+                            <div class="mobile-menu">
+                                <nav>
+                                    <ul>
+                                        <li><a href="index.html">home</a>
+                                            <!-- Home Version Dropdown Start -->
+                                            <ul>
+                                                <li><a href="index.html">Home Version One</a></li>
+                                                <li><a href="index-2.html">Home Version Two</a></li>
+                                                <li><a href="index-3.html">Home Box Layout</a></li>
+                                            </ul>
+                                            <!-- Home Version Dropdown End -->
+                                        </li>
+                                        <li><a href="shop.html">shop</a>
+                                            <!-- Mobile Menu Dropdown Start -->
+                                            <ul>
+                                                <li><a href="product.html">Shop</a>
+                                                    <ul>
+                                                        <li><a href="shop.html">Product Category Name</a>
+                                                            <!-- Start Three Step -->
+                                                            <ul>
+                                                                <li><a href="shop.html">Product Category Name</a></li>
+                                                                <li><a href="shop.html">Product Category Name</a></li>
+                                                                <li><a href="shop.html">Product Category Name</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="shop.html">Product Category Name</a></li>
+                                                        <li><a href="shop.html">Product Category Name</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="product.html">product details Page</a></li>
+                                                <li><a href="compare.html">Compare Page</a></li>
+                                                <li><a href="cart.html">Cart Page</a></li>
+                                                <li><a href="checkout.html">Checkout Page</a></li>
+                                                <li><a href="wishlist.html">Wishlist Page</a></li>
+                                            </ul>
+                                            <!-- Mobile Menu Dropdown End -->
+                                        </li>
+                                        <li><a href="blog.html">Blog</a>
+                                            <!-- Mobile Menu Dropdown Start -->
+                                            <ul>
+                                                <li><a href="blog-details.html">Blog Details Page</a></li>
+                                            </ul>
+                                            <!-- Mobile Menu Dropdown End -->
+                                        </li>
+                                        <li><a href="#">pages</a>
+                                            <!-- Mobile Menu Dropdown Start -->
+                                            <ul>
+                                                <li><a href="login.html">login Page</a></li>
+                                                <li><a href="register.html">Register Page</a></li>
+                                                <li><a href="404.html">404 Page</a></li>
+                                            </ul>
+                                            <!-- Mobile Menu Dropdown End -->
+                                        </li>
+                                        <li><a href="about.html">about us</a></li>
+                                        <li><a href="contact.html">contact us</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu  End -->                        
+                    </div>
+                    <!-- Row End -->
+                </div>
+                <!-- Container End -->
+            </div>
+            <!-- Header Bottom End -->
+        </header>
+
+        {% block content %}
+
+        <!-- Header Area End -->
+        <!-- Slider Area Start -->
+
+        <!-- Slider Area End --> 
+        <!-- Product Area Start -->
+        <div class="product-area pt-30">
+            <div class="container">
+                <div class="row">
+                    <!-- Single Product Start -->
+                    {% for prod in Products|slice:"4" %}
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="single-product">
+                                <!-- Product Image Start -->
+                                {% if prod.photo %}
+                                <div class="pro-img">
+                                    <a href="{% url 'card' prod.slug %}">
+                                        <img class="primary-img" src="{{ prod.photo.url }}" alt="single-product">
+                                    </a>
+                                </div>
+                                {% endif %}
+                                <!-- Product Image End -->
+                                <!-- Product Content Start -->
+                                <div class="pro-content">
+                                    <div class="product-rating">
+                                        {% for i in '01234' %}
+                                            <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        {% endfor %}
+
+                                    </div>
+                                    <h4><a href="product.html">{{ prod.name }}</a></h4>
+
+                                    {% if prod.sale > 0 %}
+                                        <p><span class="price">{% sale_price prod.price prod.sale %}₽</span><del class="prev-price">{{ prod.price }}₽</del> </p>
+                                    {% else %}
+                                        <p><span class="price">{{ prod.price }}₽</span></p>
+                                    {% endif %}
+
+
+                                    <div class="pro-actions">
+                                        <div class="actions-secondary">
+                                            {% if prod.count_product > 0 %}
+                                                <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                <a class="add-cart" href="{% if request.user.is_authenticated %}{% url 'basket_add' prod.id %}{% else %}{% url 'login' %}{% endif %}" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                            {% else %}
+                                                <h5>Товара нет в наличии</h5>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Product Content End -->
+<!--                                <span class="sticker-new">-30%</span>-->
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                    <!-- Single Product End -->                    
+                </div>
+            </div>
+        </div>
+        <!-- Product Area End --> 
+
+        <!-- New Products Start -->
+        <div class="new-products pb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-4 order-2">
+                        <div class="side-product-list">
+                            <div class="group-title">
+                                <h2>Лучшие книги</h2>
+                            </div>
+                            <!-- Deal Pro Activation Start -->
+                            <div class="slider-right-content side-product-list-active owl-carousel">
+                                <!-- Double Product Start -->
+                                    <div class="double-pro">
+                                        <!-- Single Product Start -->
+                                        {% for prod in Products|slice:"4" %}
+                                            <div class="single-product">
+                                                <div class="pro-img" style="height:126px;">
+                                                    <a href="{% url 'card' prod.slug %}"><img class="top-img" src="{{ prod.photo.url }}" alt="product-image"></a>
+                                                </div>
+                                                <div class="pro-content">
+                                                    <div class="product-rating">
+                                                        {% for i in '01234' %}
+                                                            <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <h4><a href="product.html">{{ prod.name }}</a></h4>
+                                                    {% if prod.sale > 0 %}
+                                                        <p><span class="price">{% sale_price prod.price prod.sale %}₽</span><del class="prev-price">{{ prod.price }}₽</del> </p>
+                                                    {% else %}
+                                                        <p><span class="price">{{ prod.price }}₽</span></p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+<!--                                <div class="owl-nav">-->
+<!--                                    <div class="owl-prev disabled">-->
+<!--                                        <i class="fa fa-angle-left"></i>-->
+<!--                                    </div>-->
+<!--                                    <div class="owl-next">-->
+<!--                                        <i class="fa fa-angle-right"></i>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="owl-dots disabled"></div>-->
+                            </div>
+                            <!-- Deal Pro Activation End -->
+                        </div>
+
+                    <div class="col-xl-9 col-lg-8  order-lg-2">
+                        <!-- New Pro Content End -->
+                        <div class="new-pro-content">
+                            <div class="pro-tab-title border-line">
+                                <!-- Featured Product List Item Start -->
+                                <ul class="nav product-list product-tab-list">
+                                    <li><a  class="active" data-toggle="tab" href="#new-arrival">Новинки В Нашем Магазине</a></li>
+                                    <li><a data-toggle="tab" href="#toprated">Featured</a></li>
+                                    <li><a data-toggle="tab" href="#new-arrival">Top Rated</a></li>
+                                </ul>
+                                <!-- Featured Product List Item End -->
+                            </div>
+                             <div class="tab-content product-tab-content jump">
+                                <div id="new-arrival" class="tab-pane active">
+                                    <!-- New Products Activation Start -->
+                                    <div class="new-pro-active owl-carousel">
+                                        <!-- Single Product Start -->
+
+                                        {% for prod in reverse_prod|slice:"5" %}
+                                            <div class="single-product">
+                                                <!-- Product Image Start -->
+                                                <div class="pro-img">
+                                                    <a href="{% url 'card' prod.slug %}">
+                                                        <img class="primary-img" src="{{ prod.photo.url }}" alt="single-product">
+                                                    </a>
+                                                </div>
+                                                <!-- Product Image End -->
+                                                <!-- Product Content Start -->
+                                                <div class="pro-content">
+                                                    <div class="product-rating">
+                                                        {% for i in '01234' %}
+                                                            <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <h4><a href="product.html">{{ prod.name }}</a></h4>
+
+                                                    {% if prod.sale > 0 %}
+                                                        <p><span class="price">{% sale_price prod.price prod.sale %}₽</span><del class="prev-price">{{ prod.price }}₽</del> </p>
+                                                    {% else %}
+                                                        <p><span class="price">{{ prod.price }}₽</span></p>
+                                                    {% endif %}
+
+                                                    <div class="pro-actions">
+                                                        <div class="actions-secondary">
+                                                            <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                            <a class="add-cart" href="{% if request.user.is_authenticated %}{% url 'basket_add' prod.id %}{% else %}{% url 'login' %}{% endif %}" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                            <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Product Content End -->
+                                            </div>
+                                        {% endfor %}
+
+                                        <!-- Single Product End -->
+                                        <!-- Single Product Start -->
+                                        <!-- Single Product End -->
+                                    </div>
+                                    <!-- New Products Activation End -->
+                                </div>
+                                <!-- New Products End -->
+                                <div id="toprated" class="tab-pane">
+                                    <!-- New Products Activation Start -->
+                                    <div class="new-pro-active owl-carousel">
+                                        <!-- Single Product Start -->
+                                        <div class="single-product">
+                                            <!-- Product Image Start -->
+                                            <div class="pro-img">
+                                                <a href="product.html">
+                                                    <img class="primary-img" src="img/products/4.jpg" alt="single-product">
+                                                    <img class="secondary-img" src="img/products/3.jpg" alt="single-product">
+                                                </a>
+                                            </div>
+                                            <!-- Product Image End -->
+                                            <!-- Product Content Start -->
+                                            <div class="pro-content">
+                                                <div class="product-rating">
+                                                    {% for i in '01234' %}
+                                                        <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    {% endfor %}
+                                                </div>
+                                                <h4><a href="product.html">Products Name Here</a></h4>
+                                                <p><span class="price">$30.00</span><del class="prev-price">$32.00</del></p>
+                                                <div class="pro-actions">
+                                                    <div class="actions-secondary">
+                                                        <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                        <a class="add-cart" href="cart.html" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                        <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Product Content End -->
+                                        </div>
+                                        <!-- Single Product End -->
+                                        <!-- Single Product Start -->
+                                        <div class="single-product">
+                                            <!-- Product Image Start -->
+                                            <div class="pro-img">
+                                                <a href="product.html">
+                                                    <img class="primary-img" src="img/products/3.jpg" alt="single-product">
+                                                    <img class="secondary-img" src="img/products/2.jpg" alt="single-product">
+                                                </a>
+                                            </div>
+                                            <!-- Product Image End -->
+                                            <!-- Product Content Start -->
+                                            <div class="pro-content">
+                                                <div class="product-rating">
+                                                    {% for i in '01234' %}
+                                                        <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    {% endfor %}
+                                                </div>
+                                                <h4><a href="product.html">Products Name Here</a></h4>
+                                                <p><span class="price">$30.00</span><del class="prev-price">$32.00</del></p>
+                                                <div class="pro-actions">
+                                                    <div class="actions-secondary">
+                                                        <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                        <a class="add-cart" href="cart.html" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                        <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Product Content End -->
+                                            <span class="sticker-new">-30%</span>
+                                        </div>
+                                        <!-- Single Product End -->
+                                        <!-- Single Product Start -->
+                                        <div class="single-product">
+                                            <!-- Product Image Start -->
+                                            <div class="pro-img">
+                                                <a href="product.html">
+                                                    <img class="primary-img" src="img/products/1.jpg" alt="single-product">
+                                                    <img class="secondary-img" src="img/products/2.jpg" alt="single-product">
+                                                </a>
+                                            </div>
+                                            <!-- Product Image End -->
+                                            <!-- Product Content Start -->
+                                            <div class="pro-content">
+                                                <div class="product-rating">
+                                                    {% for i in '01234' %}
+                                                        <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    {% endfor %}
+                                                </div>
+                                                <h4><a href="product.html">Products Name Here</a></h4>
+                                                <p><span class="price">$30.00</span><del class="prev-price">$32.00</del></p>
+                                                <div class="pro-actions">
+                                                    <div class="actions-secondary">
+                                                        <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                        <a class="add-cart" href="cart.html" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                        <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Product Content End -->
+                                        </div>
+                                        <!-- Single Product End -->
+                                        <!-- Single Product Start -->
+                                        <div class="single-product">
+                                            <!-- Product Image Start -->
+                                            <div class="pro-img">
+                                                <a href="product.html">
+                                                    <img class="primary-img" src="img/products/1.jpg" alt="single-product">
+                                                    <img class="secondary-img" src="img/products/2.jpg" alt="single-product">
+                                                </a>
+                                            </div>
+                                            <!-- Product Image End -->
+                                            <!-- Product Content Start -->
+                                            <div class="pro-content">
+                                                <div class="product-rating">
+                                                    {% for i in '01234' %}
+                                                        <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    {% endfor %}
+                                                </div>
+                                                <h4><a href="product.html">Products Name Here</a></h4>
+                                                <p><span class="price">$30.00</span><del class="prev-price">$32.00</del></p>
+                                                <div class="pro-actions">
+                                                    <div class="actions-secondary">
+                                                        <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                        <a class="add-cart" href="cart.html" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                        <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Product Content End -->
+                                        </div>
+                                        <!-- Single Product End -->
+                                        <!-- Single Product Start -->
+                                        <div class="single-product">
+                                            <!-- Product Image Start -->
+                                            <div class="pro-img">
+                                                <a href="product.html">
+                                                    <img class="primary-img" src="img/products/2.jpg" alt="single-product">
+                                                    <img class="secondary-img" src="img/products/3.jpg" alt="single-product">
+                                                </a>
+                                            </div>
+                                            <!-- Product Image End -->
+                                            <!-- Product Content Start -->
+                                            <div class="pro-content">
+                                                <div class="product-rating">
+                                                    {% for i in '01234' %}
+                                                        <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    {% endfor %}
+                                                </div>
+                                                <h4><a href="product.html">Products Name Here</a></h4>
+                                                <p><span class="price">$30.00</span><del class="prev-price">$32.00</del></p>
+                                                <div class="pro-actions">
+                                                    <div class="actions-secondary">
+                                                        <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                        <a class="add-cart" href="cart.html" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                        <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Product Content End -->
+                                        </div>
+                                        <!-- Single Product End -->
+                                        <!-- Single Product Start -->
+                                        <div class="single-product">
+                                            <!-- Product Image Start -->
+                                            <div class="pro-img">
+                                                <a href="product.html">
+                                                    <img class="primary-img" src="img/products/3.jpg" alt="single-product">
+                                                    <img class="secondary-img" src="img/products/4.jpg" alt="single-product">
+                                                </a>
+                                            </div>
+                                            <!-- Product Image End -->
+                                            <!-- Product Content Start -->
+                                            <div class="pro-content">
+                                                <div class="product-rating">
+                                                    {% for i in '01234' %}
+                                                        <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    {% endfor %}
+                                                </div>
+                                                <h4><a href="product.html">Products Name Here</a></h4>
+                                                <p><span class="price">$30.00</span><del class="prev-price">$32.00</del></p>
+                                                <div class="pro-actions">
+                                                    <div class="actions-secondary">
+                                                        <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                        <a class="add-cart" href="cart.html" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                        <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Product Content End -->
+                                        </div>
+                                        <!-- Single Product End -->
+                                    </div>
+                                    <!-- New Products Activation End -->
+                                </div>
+                            </div>
+                            <!-- Tab-Content End -->
+                            <div class="single-banner zoom mt-30 mt-sm-10">
+                            <a href="#"><img src="{% static 'book/images/book-banner-5.jpg' %}" alt="slider-banner"></a>
+                        </div>
+                        </div>
+                        <!-- New Pro Content End -->                        
+                    </div>
+                </div>
+
+            </div>
+            <!-- Container End -->
+        </div>
+        <!-- New Products End -->
+        <!-- Company Policy Start -->
+        <div class="company-policy pb-60">
+            <div class="container">
+                <div class="row">
+                    <!-- Single Policy Start -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-policy">
+                            <div class="icone-img">
+                                <img src="{% static 'book/images/1.png' %}" alt="">
+                            </div>
+                            <div class="policy-desc">
+                                <h3>БЕСПЛАТНАЯ ДОСТАВКА</h3>
+                                <p>Бесплатная доставка по всему заказу</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Policy End -->
+                    <!-- Single Policy Start -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-policy">
+                            <div class="icone-img">
+                                <img src="{% static 'book/images/2.png' %}" alt="">
+                            </div>
+                            <div class="policy-desc">
+                                <h3>ОНЛАЙН-ПОДДЕРЖКА</h3>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Policy End -->
+                    <!-- Single Policy Start -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-policy">
+                            <div class="icone-img">
+                                <img src="{% static 'book/images/3.png' %}" alt="">
+                            </div>
+                            <div class="policy-desc">
+                                <h3>ВОЗВРАТ ДЕНЕГ</h3>
+                                <p>Гарантия возврата денег в течение 7 дней, если не понравился товар</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Policy End -->
+                    <!-- Single Policy Start -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-policy">
+                            <div class="icone-img">
+                                <img src="{% static 'book/images/4.png' %}" alt="">
+                            </div>
+                              <div class="policy-desc">
+                                <h3>СКИДКА ДЛЯ УЧАСТНИКОВ</h3>
+                                <p>При каждом заказе на сумму свыше 3000₽</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Policy End -->
+                </div>
+            </div>
+        </div>
+        <!-- Company Policy End -->   
+        <!-- Best Products Start -->
+        <div class="best-seller-product pb-40">
+            <div class="container">
+                <div class="group-title">
+                    <h2>Товары-бестселлеры</h2>
+                </div>
+                <!-- Best Product Activation Start -->
+                <div class="best-seller-pro-active  owl-carousel slider-right-content ">
+
+                    {% pairs_products Products 2 as pair_prod %}
+
+                    {% for prod in pair_prod %}
+                        <div class="owl-item active" style="width: 291.75px; margin-right: 1px;">
+                            <div class="double-pro">
+                            <!-- Single Product Start -->
+                                <div class="single-product">
+                                    <div class="pro-img" style="height:100px;">
+                                        <a href="product.html"><img class="top-img" src="{{ prod.0.photo.url }}" alt="product-image"></a>
+                                    </div>
+                                    <div class="pro-content">
+                                        <div class="product-rating">
+                                            {% for i in '01234' %}
+                                                <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            {% endfor %}
+                                            </div>
+                                        <h4><a href="product.html">{{ prod.0.name }}</a></h4>
+                                        {% if prod.0.sale > 0 %}
+                                            <p><span class="price">{% sale_price prod.0.price prod.0.sale %}₽</span><del class="prev-price">{{ prod.0.price }}₽</del> </p>
+                                        {% else %}
+                                            <p><span class="price">{{ prod.0.price }}₽</span></p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <!-- Single Product End -->
+                                <!-- Single Product Start -->
+                                {% if prod|length == 2 %}
+                                    <div class="single-product">
+                                        <div class="pro-img" style="height:126px;">
+                                            <a href="product.html"><img class="top-img" src="{{ prod.1.photo.url }}" alt="product-image"></a>
+                                        </div>
+                                        <div class="pro-content">
+                                            <div class="product-rating">
+                                                {% for i in '01234' %}
+                                                    <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                {% endfor %}
+                                            </div>
+                                            <h4><a href="product.html">{{ prod.1.name }}</a></h4>
+                                            {% if prod.1.sale > 0 %}
+                                                <p><span class="price">{% sale_price prod.1.price prod.1.sale %}₽</span><del class="prev-price">{{ prod.1.price }}₽</del> </p>
+                                            {% else %}
+                                                <p><span class="price">{{ prod.1.price }}₽</span></p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            <!-- Single Product End -->
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                    </div>
+                    </div>
+                <!-- Best Product Activation End -->
+                </div>
+            <!-- Container End -->
+        <!-- Best Product End -->             
+
+
+        {% endblock content %}
+
+        <footer class="off-white-bg">
+            <!-- Footer Top Start -->
+            <div class="footer-top pt-50 pb-60">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 mr-auto ml-auto">
+                            <div class="newsletter text-center">
+                                <div class="main-news-desc">
+                                     <div class="news-desc">
+                                         <h3>Sign Up For Newsletters</h3>
+                                         <p>Get e-mail updates about our latest shop and special offers.</p>
+                                     </div>
+                                </div>
+                                <div class="newsletter-box">
+                                    <form action="#">
+                                        <input class="subscribe" placeholder="Enter your email address" name="email" id="subscribe" type="text">
+                                        <button type="submit" class="submit"></button>
+                                    </form>
+                                </div>
+                             </div>                            
+                        </div>
+                    </div>                    
+                    <div class="row">
+                        <!-- Single Footer Start -->
+                        <div class="col-lg-4  col-md-7 col-sm-6">
+                            <div class="single-footer">
+                                <h3>Contact us</h3>
+                                <div class="footer-content">
+                                    <div class="loc-address">
+                                        <span><i class="fa fa-map-marker"></i>184 Main Rd E, St Albans VIC 3021, Australia.</span>
+                                        <span><i class="fa fa-envelope-o"></i>Mail Us : yourinfo@example.com</span>
+                                        <span><i class="fa fa-phone"></i>Phone: + 00 254 254565 54</span>
+                                    </div>
+                                    <div class="payment-mth"><a href="#"><img class="img" src="img/footer/1.png" alt="payment-image"></a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Footer Start -->
+                        <!-- Single Footer Start -->
+                        <div class="col-lg-2  col-md-5 col-sm-6 footer-full">
+                            <div class="single-footer">
+                                <h3 class="footer-title">Information</h3>
+                                <div class="footer-content">
+                                    <ul class="footer-list">
+                                        <li><a href="#">Site Map</a></li>
+                                        <li><a href="#">Specials</a></li>
+                                        <li><a href="#">Jobs</a></li>
+                                        <li><a href="#">Delivery Information</a></li>
+                                        <li><a href="#">Order History</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Footer Start -->
+                        <!-- Single Footer Start -->
+                        <div class="col-lg-2  col-md-4 col-md-4 col-sm-6 footer-full">
+                            <div class="single-footer">
+                                <h3 class="footer-title">My Account</h3>
+                                <div class="footer-content">
+                                    <ul class="footer-list">
+                                        <li><a href="account.html">My account</a></li>
+                                        <li><a href="#">Checkout</a></li>
+                                        <li><a href="#">Login</a></li>
+                                        <li><a href="#">address</a></li>
+                                        <li><a href="#">Order status</a></li>
+                                        <li><a href="#">Site Map</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Footer Start -->
+                        <!-- Single Footer Start -->
+                        <div class="col-lg-2 col-md-4 col-sm-6 footer-full">
+                            <div class="single-footer">
+                                <h3 class="footer-title">customer service</h3>
+                                <div class="footer-content">
+                                    <ul class="footer-list">
+                                        <li><a href="account.html">My account</a></li>
+                                        <li><a href="#">New</a></li>
+                                        <li><a href="#">Gift Cards</a></li>
+                                        <li><a href="#">Return Policy</a></li>
+                                        <li><a href="#">Your Orders</a></li>
+                                        <li><a href="#">Subway</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Footer Start -->
+                        <!-- Single Footer Start -->
+                        <div class="col-lg-2 col-md-4 col-sm-6 footer-full">
+                            <div class="single-footer">
+                                <h3 class="footer-title">Let Us Help You</h3>
+                                <div class="footer-content">
+                                    <ul class="footer-list">
+                                        <li><a href="#">Your Account</a></li>
+                                        <li><a href="#">Your Orders</a></li>
+                                        <li><a href="#">Shipping</a></li>
+                                        <li><a href="#">Amazon Prime</a></li>
+                                        <li><a href="#">Replacements</a></li>
+                                        <li><a href="#">Manage </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Footer Start -->
+                    </div>
+                    <!-- Row End -->
+                </div>
+                <!-- Container End -->
+            </div>
+            <!-- Footer Top End -->
+            <!-- Footer Bottom Start -->
+            <div class="footer-bottom off-white-bg2">
+                <div class="container">
+                    <div class="footer-bottom-content">
+                        <p class="copy-right-text">Copyright © <a  href="#">Jantrik</a> All Rights Reserved.</p>
+                        <div class="footer-social-content">
+                            <ul class="social-content-list">
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-wifi"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Container End -->
+            </div>
+            <!-- Footer Bottom End -->
+        </footer>
+        <!-- Footer End -->
+    </div>
+    <!-- Wrapper End -->
+    <!-- jquery 3.12.4 -->
+    <!-- mobile menu js  -->
+    <script src="{% static 'book/js/jquery-3.6.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'book/js/jquery.meanmenu.min.js' %}"></script>
+    <!-- scroll-up js -->
+    <script type="text/javascript" src="{% static 'book/js/jquery.scrollUp.js' %}"></script>
+    <!-- owl-carousel js -->
+    <script type="text/javascript" src="{% static 'book/js/owl.carousel.min.js' %}"></script>
+    <!-- slick js -->
+    <script type="text/javascript" src="{% static 'book/js/slick.min.js' %}"></script>
+    <!-- wow js -->
+    <script type="text/javascript" src="{% static 'book/js/wow.min.js' %}"></script>
+    <!-- price slider js -->
+    <script type="text/javascript" src="{% static 'book/js/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'book/js/jquery.countdown.min.js' %}"></script>
+    <!-- nivo slider js -->
+    <script type="text/javascript" src="{% static 'book/js/jquery.nivo.slider.js' %}"></script>
+    <!-- fancybox js -->
+    <script type="text/javascript" src="{% static 'book/js/jquery.fancybox.min.js' %}"></script>
+    <!-- bootstrap -->
+    <script type="text/javascript" src="{% static 'book/js/bootstrap.min.js' %}"></script>
+    <!-- popper -->
+    <script type="text/javascript" src="{% static 'book/js/popper.js' %}"></script>
+    <!-- plugins -->
+    <script type="text/javascript" src="{% static 'book/js/plugins.js' %}"></script>
+    <!-- main js -->
+    <script type="text/javascript" src="{% static 'book/js/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'book/js/shop-view.js' %}"></script>
+</body>
+
+</html>

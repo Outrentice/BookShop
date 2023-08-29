@@ -1,0 +1,396 @@
+{% extends 'book/index.html' %}
+{% load main_tags %}
+
+
+    {% block content %}
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-area ptb-60 ptb-sm-30">
+            <div class="container">
+                <div class="breadcrumb">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li class="active"><a href="{% url 'shop' %}">Shop</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Container End -->
+        </div>
+        <!-- Breadcrumb End -->
+        <!-- Shop Page Start -->
+        <div class="main-shop-page pb-60">
+            <div class="container">
+                <!-- Row End -->
+                <div class="row">
+                    <!-- Sidebar Shopping Option Start -->
+                    <div class="col-lg-3  order-2">
+                        <div class="sidebar white-bg">
+                            <div class="single-sidebar">
+                                <div class="group-title">
+                                    <h2>Стили</h2>
+                                </div>
+                                <ul>
+                                    {% for cat in categorys %}
+                                        <li><a href="?cat={{ cat.id }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}{% if request.GET.view %}&view={{ request.GET.view }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}" {% if request.GET.cat|add:"0" == cat.id %} style="color: #f1ac06;" {% endif %}>{{ cat }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="single-sidebar">
+                                <div class="group-title">
+                                    <h2>Цена</h2>
+                                </div>
+
+                                <form action="?sort=price" method="get">
+                                    {% csrf_token %}
+
+
+                                        <p>
+                                            <label for="id_{{ form.start_price.name }}">От:</label>
+                                            <input type="number" name="{{ form.start_price.name }}" value="{% if form.start_price.value %}{{ form.start_price.value }}{% else %}{{ form.start_price.field.widget.attrs.value }}{% endif %}" required="" id="id_{{ form.start_price.name }}">
+                                        </p>
+                                        <p>
+                                            <label for="id_{{ form.end_price.name }}">До:</label>
+                                            <input type="number" name="{{ form.end_price.name }}" value="{% if form.end_price.value %}{{ form.end_price.value }}{% else %}{{ form.end_price.field.widget.attrs.value }}{% endif %}" required="" id="id_{{ form.end_price.name }}">
+                                        </p>
+
+                                    <button type="submit" style="right: 0; margin-top: 10px;">Применить</button>
+
+                                </form>
+
+                                <a href="{% url 'shop' %}?{% if request.GET.cat %}cat={{ request.GET.cat }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.page %}&page={{ request.GET.page }}{% endif %}{% if request.GET.view %}&view={{ request.GET.view }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}" style="margin-left:-4px;" class="remove-sort">
+                                    <svg width="16px" height="16px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 8L8 16M8.00001 8L16 16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                Сбросить</a>
+
+                            </div>
+                            <div class="single-sidebar">
+                                <div class="group-title">
+                                    <h2>Автор</h2>
+                                </div>
+                                <ul class="manufactures-list">
+
+                                    {% for author in authors %}
+                                    <li><a href="?author={{ author.id }}{% if request.GET.cat %}&cat={{ request.GET.cat }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}{% if request.GET.view %}&view={{ request.GET.view }}{% endif %}" {% if request.GET.author|add:"0" == author.id %} style="color: #f1ac06;" {% endif %}>{{ author.first_name }} {{ author.middle_name }} {{ author.last_name }}</a></li>
+                                    {% endfor %}
+                                    <a href="{% url 'shop' %}?{% if request.GET.cat %}&cat={{ request.GET.cat }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}{% if request.GET.view %}&view={{ request.GET.view }}{% endif %}" style="margin-left:-4px;" class="remove-sort">
+                                    <svg width="16px" height="16px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 8L8 16M8.00001 8L16 16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                Сбросить</a>
+                                </ul>
+                            </div>
+
+                            {% if Basket_product %}
+
+                                <div class="single-sidebar">
+                                    <div class="group-title">
+                                        <h2>Моя корзина</h2>
+                                    </div>
+                                    <div class="best-seller-pro-two compare-pro best-seller-pro-two owl-carousel">
+                                        <!-- Best Seller Multi Product Start -->
+                                        <div class="best-seller-multi-product">
+                                            <!-- Single Product Start -->
+                                            <div class="single-product">
+                                                <!-- Product Image Start -->
+                                                <div class="pro-img">
+                                                    <a href="{% url 'basket' %}">
+                                                        <img class="primary-img" style="padding-left:0px;" src="{{ Basket_product.0.product.photo.url }}" alt="single-product">
+                                                    </a>
+                                                </div>
+                                                <!-- Product Image End -->
+                                                <!-- Product Content Start -->
+                                                <div class="pro-content">
+                                                    <h4><a href="{% url 'basket' %}">{{ Basket_product.0.product.name }}</a></h4>
+                                                    <div class="product-rating">
+                                                        {% for i in '01234' %}
+                                                            <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <p><span class="price">{% sale_price Basket_product.0.product.price Basket_product.0.product.sale %}₽</span></p>
+                                                </div>
+                                                <!-- Product Content End -->
+                                            </div>
+                                            <!-- Single Product End -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% endif %}
+
+                            <!-- Single Banner Start -->
+                            <div class="single-sidebar single-banner zoom pt-20">
+                                <a href="#" class="hidden-sm"><img src="img/banner/8.jpg" alt="slider-banner"></a>
+                                <a href="#" class="visible-sm"><img src="img/banner/6.jpg" alt="slider-banner"></a>
+                            </div>
+                            <!-- Single Banner End -->
+                        </div>
+                    </div>
+                    <!-- Sidebar Shopping Option End -->                    
+                    <!-- Product Categorie List Start -->
+                    <div class="col-lg-9 order-lg-2">
+                        <!-- Grid & List View Start -->
+                        <div class="grid-list-top border-default universal-padding fix mb-30">
+                            <div class="grid-list-view f-left">
+                                <ul class="list-inline nav">
+
+                                    <a href="?view=grid{% if request.GET.cat %}&cat={{ request.GET.cat }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}{% if request.GET.page %}&page={{ request.GET.page }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}">
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" id="grid-view-but" class="shop-view-svg {% if request.GET.view == 'grid' %}active{% endif %}">
+                                            <path d="M6.75 3C3.88235 3 3 3.88235 3 6.75C3 9.61765 3.88235 10.5 6.75 10.5C9.61765 10.5 10.5 9.61765 10.5 6.75C10.5 3.88235 9.61765 3 6.75 3Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6.75 13.5C3.88235 13.5 3 14.3824 3 17.25C3 20.1176 3.88235 21 6.75 21C9.61765 21 10.5 20.1176 10.5 17.25C10.5 14.3824 9.61765 13.5 6.75 13.5Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M17.25 13.5C14.3824 13.5 13.5 14.3824 13.5 17.25C13.5 20.1176 14.3824 21 17.25 21C20.1176 21 21 20.1176 21 17.25C21 14.3824 20.1176 13.5 17.25 13.5Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M17.25 3C14.3824 3 13.5 3.88235 13.5 6.75C13.5 9.61765 14.3824 10.5 17.25 10.5C20.1176 10.5 21 9.61765 21 6.75C21 3.88235 20.1176 3 17.25 3Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+
+                                    <a href="?view=list{% if request.GET.cat %}&cat={{ request.GET.cat }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}{% if request.GET.page %}&page={{ request.GET.page }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}">
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" id="list-view-but" class="shop-view-svg {% if request.GET.view == 'list' %}active{% endif %}">
+                                            <path d="M3 6.5C3 8.05556 3.5 9.41667 4 9.61111C4.5 9.80556 8 10 12 10C16 10 19.5 9.80555 20 9.61111C20.5 9.41667 21 8.05556 21 6.5C21 4.94444 20.5 3.58333 20 3.38889C19.5 3.19444 16 3 12 3C8 3 4.5 3.19444 4 3.38889C3.5 3.58333 3 4.94444 3 6.5Z" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M3 17.5C3 19.0556 3.5 20.4167 4 20.6111C4.5 20.8056 8 21 12 21C16 21 19.5 20.8056 20 20.6111C20.5 20.4167 21 19.0556 21 17.5C21 15.9444 20.5 14.5833 20 14.3889C19.5 14.1944 16 14 12 14C8 14 4.5 14.1944 4 14.3889C3.5 14.5833 3 15.9444 3 17.5Z" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+
+                                    <li><span class="grid-item-list"> Items 1-12 of 13</span></li>
+                                </ul>
+                            </div>
+                            <!-- Toolbar Short Area Start -->
+                            <div class="main-toolbar-sorter f-right">
+                                <div class="toolbar-sorter">
+                                    <label>Сортировать по</label>
+                                    {% with sort=request.GET.sort %}
+
+                                    <a href="?sort={% if sort != 'name' %}name{% else %}-name{% endif %}{% if request.GET.cat %}&cat={{ request.GET.cat }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}{% if request.GET.view %}&view={{ request.GET.view }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}" {% if sort == 'name' or sort == '-name' %} class="active-sort" {% endif %}>Названию
+                                        {% if sort == '-name' %}
+                                            <svg width="13px" height="13px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M17 3.25C17.4142 3.25 17.75 3.58579 17.75 4V17.75L19.4 15.55C19.6485 15.2186 20.1186 15.1515 20.45 15.4C20.7814 15.6485 20.8485 16.1186 20.6 16.45L17.6 20.45C17.4063 20.7083 17.0691 20.8136 16.7628 20.7115C16.4566 20.6094 16.25 20.3228 16.25 20V4C16.25 3.58579 16.5858 3.25 17 3.25ZM7.25 6C7.25 5.58579 7.58579 5.25 8 5.25H13C13.4142 5.25 13.75 5.58579 13.75 6C13.75 6.41421 13.4142 6.75 13 6.75H8C7.58579 6.75 7.25 6.41421 7.25 6ZM5.25 11C5.25 10.5858 5.58579 10.25 6 10.25H13C13.4142 10.25 13.75 10.5858 13.75 11C13.75 11.4142 13.4142 11.75 13 11.75H6C5.58579 11.75 5.25 11.4142 5.25 11ZM3.25 16C3.25 15.5858 3.58579 15.25 4 15.25H13C13.4142 15.25 13.75 15.5858 13.75 16C13.75 16.4142 13.4142 16.75 13 16.75H4C3.58579 16.75 3.25 16.4142 3.25 16Z" fill="#000000"/> </g>
+                                            </svg>
+                                        {% else %}
+                                            <svg width="13px" height="13px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M16.7628 3.28854C17.0691 3.18645 17.4063 3.29179 17.6 3.55005L20.6 7.55005C20.8485 7.88142 20.7814 8.35152 20.45 8.60005C20.1186 8.84858 19.6485 8.78142 19.4 8.45005L17.75 6.25005V20C17.75 20.4143 17.4142 20.75 17 20.75C16.5858 20.75 16.25 20.4143 16.25 20V4.00005C16.25 3.67723 16.4566 3.39062 16.7628 3.28854ZM3.25 8.00005C3.25 7.58583 3.58579 7.25005 4 7.25005H13C13.4142 7.25005 13.75 7.58583 13.75 8.00005C13.75 8.41426 13.4142 8.75005 13 8.75005H4C3.58579 8.75005 3.25 8.41426 3.25 8.00005ZM5.25 13C5.25 12.5858 5.58579 12.25 6 12.25H13C13.4142 12.25 13.75 12.5858 13.75 13C13.75 13.4143 13.4142 13.75 13 13.75H6C5.58579 13.75 5.25 13.4143 5.25 13ZM7.25 18C7.25 17.5858 7.58579 17.25 8 17.25H13C13.4142 17.25 13.75 17.5858 13.75 18C13.75 18.4143 13.4142 18.75 13 18.75H8C7.58579 18.75 7.25 18.4143 7.25 18Z" fill="#000000"/> </g>
+                                            </svg>
+                                        {% endif %}
+                                    </a>
+                                    <a href="?sort={% if sort != 'price' %}price{% else %}-price{% endif %}{% if request.GET.cat %}&cat={{ request.GET.cat }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}{% if request.GET.view %}&view={{ request.GET.view }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}" {% if sort == 'price' or sort == '-price' %} class="active-sort" {% endif %}>Цене
+                                        {% if sort == '-price' %}
+                                            <svg width="13px" height="13px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M17 3.25C17.4142 3.25 17.75 3.58579 17.75 4V17.75L19.4 15.55C19.6485 15.2186 20.1186 15.1515 20.45 15.4C20.7814 15.6485 20.8485 16.1186 20.6 16.45L17.6 20.45C17.4063 20.7083 17.0691 20.8136 16.7628 20.7115C16.4566 20.6094 16.25 20.3228 16.25 20V4C16.25 3.58579 16.5858 3.25 17 3.25ZM7.25 6C7.25 5.58579 7.58579 5.25 8 5.25H13C13.4142 5.25 13.75 5.58579 13.75 6C13.75 6.41421 13.4142 6.75 13 6.75H8C7.58579 6.75 7.25 6.41421 7.25 6ZM5.25 11C5.25 10.5858 5.58579 10.25 6 10.25H13C13.4142 10.25 13.75 10.5858 13.75 11C13.75 11.4142 13.4142 11.75 13 11.75H6C5.58579 11.75 5.25 11.4142 5.25 11ZM3.25 16C3.25 15.5858 3.58579 15.25 4 15.25H13C13.4142 15.25 13.75 15.5858 13.75 16C13.75 16.4142 13.4142 16.75 13 16.75H4C3.58579 16.75 3.25 16.4142 3.25 16Z" fill="#000000"/> </g>
+                                            </svg>
+                                        {% else %}
+                                            <svg width="13px" height="13px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M16.7628 3.28854C17.0691 3.18645 17.4063 3.29179 17.6 3.55005L20.6 7.55005C20.8485 7.88142 20.7814 8.35152 20.45 8.60005C20.1186 8.84858 19.6485 8.78142 19.4 8.45005L17.75 6.25005V20C17.75 20.4143 17.4142 20.75 17 20.75C16.5858 20.75 16.25 20.4143 16.25 20V4.00005C16.25 3.67723 16.4566 3.39062 16.7628 3.28854ZM3.25 8.00005C3.25 7.58583 3.58579 7.25005 4 7.25005H13C13.4142 7.25005 13.75 7.58583 13.75 8.00005C13.75 8.41426 13.4142 8.75005 13 8.75005H4C3.58579 8.75005 3.25 8.41426 3.25 8.00005ZM5.25 13C5.25 12.5858 5.58579 12.25 6 12.25H13C13.4142 12.25 13.75 12.5858 13.75 13C13.75 13.4143 13.4142 13.75 13 13.75H6C5.58579 13.75 5.25 13.4143 5.25 13ZM7.25 18C7.25 17.5858 7.58579 17.25 8 17.25H13C13.4142 17.25 13.75 17.5858 13.75 18C13.75 18.4143 13.4142 18.75 13 18.75H8C7.58579 18.75 7.25 18.4143 7.25 18Z" fill="#000000"/> </g>
+                                            </svg>
+                                        {% endif %}
+                                    </a>
+                                    <a href="{% url 'shop' %}?{% if request.GET.cat %}cat={{ request.GET.cat }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}">
+                                        <svg width="16px" height="16px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" class="remove-sort">
+                                            <path d="M16 8L8 16M8.00001 8L16 16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                    {% endwith %}
+                                </div>
+                            </div>
+                            <!-- Toolbar Short Area End -->
+                        </div>
+                        <!-- Grid & List View End -->
+                        <div class="main-categorie">
+                            <!-- Grid & List Main Area End -->
+                            <div class="tab-content fix">
+                                <div id="grid-view" class="tab-pane {% if request.GET.view == 'grid' %} active show {% endif %}">
+                                    <div class="row">
+                                        <!-- Single Product Start -->
+
+                                        {% if not Products %}
+                                            <h4 style="margin-left:1.67%;">Товары отсутствуют</h4>
+                                        {% else %}
+
+                                            {% for prod in Products %}
+                                                <div class="col-lg-4 col-sm-6">
+                                                    <div class="single-product">
+                                                        <!-- Product Image Start -->
+                                                        <div class="pro-img">
+                                                            <a href="{% url 'card' prod.slug %}">
+                                                                <img class="primary-img" src="{{ prod.photo.url }}" alt="single-product">
+                                                            </a>
+                                                        </div>
+                                                        <!-- Product Image End -->
+                                                        <!-- Product Content Start -->
+                                                        <div class="pro-content">
+                                                            <div class="product-rating">
+                                                                {% for i in '01234' %}
+                                                                    <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                                                                {% endfor %}
+                                                            </div>
+                                                            <h4><a href="product.html">{{ prod.name }}</a></h4>
+                                                            {% if prod.sale > 0 %}
+                                                                <p><span class="price">{% sale_price prod.price prod.sale %}₽</span><del class="prev-price">{{ prod.price }}₽</del> </p>
+                                                            {% else %}
+                                                                <p><span class="price">{{ prod.price }}₽</span></p>
+                                                            {% endif %}
+                                                            <div class="pro-actions">
+                                                                <div class="actions-secondary">
+                                                                    {% if prod.count_product > 0 %}
+                                                                        <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                                        <a class="add-cart" href="{% if request.user.is_authenticated %}{% url 'basket_add' prod.id %}{% else %}{% url 'login' %}{% endif %}" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                                        <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                                    {% else %}
+                                                                        <h5>Товара нет в наличии</h5>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Product Content End -->
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+
+                                        {% endif %}
+
+                                        <!-- Single Product End -->                    
+                                    </div>                                    
+                                </div>
+                                <!-- #grid view End -->
+                                <div id="list-view" class="tab-pane {% if request.GET.view == 'list' or not request.GET.view %} active show {% endif %}">
+                                    <!-- Single Product Start -->
+
+                                    {% if not Products %}
+                                        <h4>Товары отсутствуют</h4>
+                                    {% else %}
+
+                                        {% for prod in Products %}
+                                            <div class="single-product">
+                                                <!-- Product Image Start -->
+                                                <div class="pro-img">
+                                                    <a href="{% url 'card' prod.slug %}">
+                                                        <img class="primary-img" style="padding-left:10px;" src="{{ prod.photo.url }}" alt="single-product">
+                                                    </a>
+                                                </div>
+                                                <!-- Product Image End -->
+                                                <!-- Product Content Start -->
+                                                <div class="pro-content">
+                                                    <div class="product-rating">
+                                                        {% for i in '01234' %}
+                                                            <svg width="12px" height="12px" viewBox="0 0 24 24" fill="#f9ba48" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#f9ba48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <h4><a href="{% url 'card' prod.slug %}">{{ prod.name }}</a></h4>
+
+                                                    {% if prod.sale > 0 %}
+                                                        <p><span class="price">{% sale_price prod.price prod.sale %}₽</span><del class="prev-price">{{ prod.price }}₽</del> </p>
+                                                    {% else %}
+                                                        <p><span class="price">{{ prod.price }}₽</span></p>
+                                                    {% endif %}
+
+                                                    <p>{{ prod.description|truncatechars:255 }}</p>
+                                                    <div class="pro-actions">
+                                                        <div class="actions-secondary">
+                                                            {% if prod.count_product > 0 %}
+                                                                <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                                <a class="add-cart" href="{% if request.user.is_authenticated %}{% url 'basket_add' prod.id %}{% else %}{% url 'login' %}{% endif %}" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                                <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                            {% else %}
+                                                                <h5>Товара нет в наличии</h5>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Product Content End -->
+                                            </div>
+                                        {% endfor %}
+
+                                    {% endif %}
+
+                                <!-- #list view End -->
+                                </div>
+                                <!-- Grid & List Main Area End -->
+                            </div>
+                        <!--Breadcrumb and Page Show Start -->
+                        {% if paginator.num_pages > 1 %}
+                            <div class="pagination-box fix">
+                                <ul class="blog-pagination ">
+                                    {% with sort=request.GET.sort cat=request.GET.cat %}
+
+                                    {% if page_obj.has_previous %}
+                                        <li><a href="?page={{ page_obj.previous_page_number }}{% if sort %}&sort={{ sort }}{% endif %}{% if cat %}&cat={{ cat }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}{% if request.GET.view %}&view={{ request.GET.view }}{% endif %}"> < </a></li>
+                                    {% endif %}
+
+                                    {% for page in paginator.page_range %}
+                                        {% if page_obj.number == page %}
+                                            <li class="active"><a href="#">{{ page }}</a></li>
+                                        {% elif page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+                                            <li><a href="?page={{ page }}{% if sort %}&sort={{ sort }}{% endif %}{% if cat %}&cat={{ cat }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}{% if request.GET.view %}&view={{ request.GET.view }}{% endif %}">{{ page }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if page_obj.has_next %}
+                                        <li><a href="?page={{ page_obj.next_page_number }}{% if sort %}&sort={{ sort }}{% endif %}{% if cat %}&cat={{ cat }}{% endif %}{% if request.GET.start_price %}&start_price={{ request.GET.start_price }}{% endif %}{% if request.GET.end_price %}&end_price={{ request.GET.end_price }}{% endif %}{% if request.GET.author %}&author={{ request.GET.author }}{% endif %}{% if request.GET.view %}&view={{ request.GET.view }}{% endif %}"> > </a></li>
+                                    {% endif %}
+
+                                    {% endwith %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        <!--Breadcrumb and Page Show End -->
+                    </div>
+                    <!-- product Categorie List End -->
+                </div>
+                <!-- Row End -->
+            </div>
+            <!-- Container End -->
+        </div>
+        <!-- Shop Page End -->
+        <!-- Brand Logo Start -->
+        <div class="brand-area pb-60">
+            <div class="container">
+                <!-- Brand Banner Start -->
+                <div class="brand-banner owl-carousel">
+                    <div class="single-brand">
+                        <a href="#"><img class="img" src="img/brand/1.png" alt="brand-image"></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/2.png" alt="brand-image"></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/3.png" alt="brand-image"></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/4.png" alt="brand-image"></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/5.png" alt="brand-image"></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img class="img" src="img/brand/1.png" alt="brand-image"></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/2.png" alt="brand-image"></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/3.png" alt="brand-image"></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/4.png" alt="brand-image"></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/5.png" alt="brand-image"></a>
+                    </div>
+                </div>
+                <!-- Brand Banner End -->                
+            </div>
+        </div>
+        <!-- Brand Logo End -->
+
+    {% endblock content %}
