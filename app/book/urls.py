@@ -3,6 +3,7 @@ from django.urls import path
 
 from app import settings
 from .views import *
+from .APIviews import *
 
 
 urlpatterns = [
@@ -18,6 +19,15 @@ urlpatterns = [
     path('basket/change/<int:basket_id>/<int:count>', basket_change, name='basket_change'),  # Изменение количества товара
     path('basket/del/<int:basket_id>', basket_delete, name='basket_delete'),  # Удаление товара из корзины
     path('search/', search, name='search'),  # Поиск
+
+    #API
+
+    path('api/v1/books', APIBook.as_view()),
+    path('api/v1/books/<int:pk>', APIBook.as_view()),
+    path('api/v1/books/<slug:slug>', APIBook.as_view()),
+    path('api/v1/authors', APIAuthor.as_view()),
+    path('api/v1/authors/<int:pk>', APIAuthor.as_view()),
+    path('api/v1/books/author/<int:pk>', APIBookAuthor.as_view()),
 ]
 
 if settings.DEBUG:
